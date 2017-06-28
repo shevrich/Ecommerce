@@ -1,0 +1,76 @@
+﻿@using ECommerce.Data
+@using ECommerce.Models
+@model ItemsViewModel
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <a href="/home/logout">Logout</a>
+        <br />
+        <button class="btn btn-primary category" id="add">Add Category</button>
+        <br />
+        <button class="btn btn-primary product" id="add">Add Product</button>
+        <table class="table table-bordered" style="margin-top: 20px;">
+            <tr>
+                <th>Categories</th>
+            </tr>
+            @foreach (Category category in Model.categories)
+            {
+                <tr>
+                    <td style="text-align:center">@category.Name</td>
+                </tr>
+            }
+           
+        </table>
+    </div>
+</div>
+
+    <div class="modal fade category-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form method="post" action="/admin/addcategory">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add Category</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input id="category-name" type="text" placeholder="Name" class="form-control" name="name" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary">Add Category</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </form>
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+<div class="modal fade product-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form method="post" enctype="multipart/form-data" action="/admin/addproduct">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Product</h4>
+                </div>
+                <div class="modal-body">
+                    <input id="category-name" type="text" placeholder="Category Name" class="form-control" name="name" />
+                    <br />
+                    <input id="title" type="text" placeholder="Title" class="form-control" name="title" />
+                    <br />
+                    <textarea id="description" type="text" placeholder="Description" class="form-control" name="description"></textarea>
+                    <br />
+                    <input id="price" type="text" placeholder="Price" class="form-control" name="price" />
+                    <input type="file" name="file" class="form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary">Add Product</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </form>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+    @section scripts{
+        <script src="/Scripts/items.js"></script>
+    }
+

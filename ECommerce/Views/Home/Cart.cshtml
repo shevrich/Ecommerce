@@ -1,0 +1,38 @@
+﻿@using ECommerce.Models
+@using ECommerce.Data
+@model ItemsViewModel
+
+
+    <h2 class="text-center">Items in your cart!</h2>
+    @foreach (ShoppingCartItem i in Model.ItemsPerCart)
+    {
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 well">
+                <img src="/Images/@i.Product.ImageFile" height="100" width="100" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">$@i.Product.Price</h4>
+                    <h4>
+                        <a href="/home/viewImage?Id=@i.Product.Id">@i.Product.Title</a>
+                    </h4>
+                    <h5 class="quantity-@i.Id">Quantity: @i.Quantity</h5>
+                    <select style="display: none" class="form-control quantity-selector-@i.Id">
+                        <option value="null">Quantity</option>
+                        @for (int n = 1; n <= 20; n++)
+                        {
+                            <option value="@n">@n</option>
+                        }
+                    </select>
+                    <button data-product-Id="@i.Product.Id" 
+                            data-cart-Id="@i.CartId" class="btn btn-danger pull-right">Delete</button>
+                    <button data-Id="@i.Id" class="btn btn-warning edit-@i.Id">Edit</button>
+                    <button data-product-Id="@i.Product.Id" data-cart-Id="@i.CartId" data-Id="@i.Id"
+                            data-quantity="@i.Quantity" 
+                            class="btn btn-info save-@i.Id" style="display:none">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    }
+
+@section scripts{
+    <script src="/Scripts/shoppingCart.js"></script>
+    }

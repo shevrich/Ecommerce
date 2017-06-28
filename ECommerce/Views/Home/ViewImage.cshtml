@@ -1,0 +1,55 @@
+﻿@using ECommerce.Data
+@using ECommerce.Models
+@model ItemsViewModel
+
+<div class="container">
+
+    @if (Model.message != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>@Model.message
+        </div>
+    }
+
+    <div class="col-md-3">
+        <p class="lead"></p>
+        <div class="list-group">
+            @foreach (Category c in Model.categories)
+            {
+                <a href="/home/index?CategoryId=@c.Id" data-categoryId="@c.Id" class="list-group-item categories-list">@c.Name</a>
+            }
+        </div>
+    </div>
+
+   
+    <div class="col-md-9">
+        <div class="thumbnail">
+            <img class="img-responsive" src="~/Images/@Model.product.ImageFile" alt="">
+            <div class="caption-full">
+                <h4 class="pull-right">$@Model.product.Price</h4>
+                <h4>
+                    <a href="#">@Model.product.Title</a>
+                </h4>
+                <p>@Model.product.Description</p>
+                <br />
+                <input class="hidden" value="@DateTime.Now" name="DateCreated"/>
+                <select id="quantity" class="form-control"><option value="null">Quantity</option>
+                @for(int i = 1; i<=20; i++)
+                {
+                    <option value="@i">@i</option>
+                }</select>
+                <button data-productId="@Model.product.Id" id="addToCart" class="btn btn-primary">Add to Cart</button>
+               
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+@section scripts{
+    <script src="/Scripts/cart.js"></script>
+}
+
+
